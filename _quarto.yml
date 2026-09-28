@@ -1,0 +1,21 @@
+project:
+  title: "CHF thesis template"
+
+bibliography: references.bib
+# Citation style: Chicago author-date (Quarto default). To change, download a .csl from
+# https://www.zotero.org/styles into this folder and add e.g.  csl: apa.csl
+link-citations: true
+
+format:
+  pdf:
+    documentclass: report
+    papersize: a4
+    fontsize: 12pt
+    geometry: margin=2.5cm
+    linestretch: 1.5
+    number-sections: true
+    colorlinks: true
+    include-in-header:
+      text: |
+        \usepackage{booktabs}
+        \usepackage{threeparttable}

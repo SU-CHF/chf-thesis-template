@@ -1,0 +1,74 @@
+---
+title: "Setup check: R, LaTeX, math, citations"
+author: "Student Name"
+date: today
+format:
+  pdf:
+    documentclass: article
+    toc: false
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+If this document renders to a PDF with an equation, a figure, a table, and a reference list,
+then R, knitr, TinyTeX, and the bibliography pipeline all work. Sentinel: `CHF-CHECK-R-OK`.
+
+## An equation
+
+The household maximises utility subject to a full-income constraint:
+
+$$
+\max_{x,\,\ell}\; u(x, \ell) \quad \text{s.t.} \quad p\,x = w\,(T - \ell) + v,
+$$ {#eq-budget}
+
+and @eq-budget is referred to here by its label, so cross-references work too.
+
+## A figure (ggplot2)
+
+```{r}
+#| label: fig-check
+#| fig-cap: "Fuel economy against weight, example data shipped with R."
+#| fig-width: 6
+#| fig-height: 3.5
+library(ggplot2)
+ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
+  geom_point(size = 2) +
+  scale_colour_manual(values = c("#0072B2", "#E69F00", "#009E73"), name = "Cylinders") +
+  labs(x = "Weight (1000 lb)", y = "Miles per gallon") +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "top")
+```
+
+## A regression table (fixest + modelsummary)
+
+```{r}
+#| label: tbl-check
+#| tbl-cap: "Two specifications, example data."
+library(fixest)
+library(modelsummary)
+m1 <- feols(mpg ~ wt, data = mtcars)
+m2 <- feols(mpg ~ wt + hp | cyl, data = mtcars)
+modelsummary(list("OLS" = m1, "Cylinder FE" = m2),
+             stars = TRUE, gof_map = c("nobs", "r.squared"),
+             notes = "Heteroskedasticity-robust standard errors in parentheses.",
+             vcov = "HC1", output = "latex")
+```
+
+## A citation
+
+The household production framework goes back to @beckerTheoryAllocationTime1965. If the
+reference below is rendered in full (author, year, journal, pages) the citation pipeline
+works.
+
+## Versions
+
+```{r}
+#| echo: false
+cat("R", as.character(getRversion()), "| knitr", as.character(packageVersion("knitr")),
+    "| fixest", as.character(packageVersion("fixest")),
+    "| modelsummary", as.character(packageVersion("modelsummary")))
+```
+
+## References

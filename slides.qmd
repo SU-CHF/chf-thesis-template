@@ -1,0 +1,65 @@
+---
+title: "Talk title"
+subtitle: "CHF seminar"
+author: "Student Name"
+institute: "Centre for Household Finance, Stellenbosch University"
+date: today
+date-format: "D MMMM YYYY"
+format:
+  beamer:
+    theme: default
+    colortheme: dolphin
+    aspectratio: 169
+    fontsize: 11pt
+    navigation: empty
+    section-titles: false
+    include-in-header:
+      text: |
+        \usepackage{booktabs}
+        \setbeamertemplate{caption}[numbered]
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## Motivation
+
+- One idea per slide; three to four lines per bullet at most.
+- Citations work the same way as in the thesis: @beckerTheoryAllocationTime1965.
+
+## Data
+
+```{r}
+#| label: tbl-summary
+#| tbl-cap: "Summary statistics (example data)"
+library(modelsummary)
+datasummary_skim(mtcars[, c("mpg", "hp", "wt")], type = "numeric", output = "latex",
+                 histogram = FALSE)
+```
+
+## Main result
+
+```{r}
+#| label: fig-main
+#| fig-cap: "Fuel economy and weight (example data)"
+#| fig-width: 7
+#| fig-height: 3.5
+library(ggplot2)
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(colour = "#0072B2") +
+  geom_smooth(method = "lm", se = TRUE, colour = "#D55E00") +
+  labs(x = "Weight (1000 lb)", y = "Miles per gallon") +
+  theme_minimal(base_size = 12)
+```
+
+## Conclusion
+
+- What was found.
+- What it means for households.
+- What comes next.
+
+## References {.allowframebreaks}
+
+::: {#refs}
+:::

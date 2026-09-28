@@ -1,0 +1,69 @@
+---
+title: "Thesis title"
+subtitle: "MCom (Economics) thesis, Stellenbosch University"
+author: "Student Name"
+date: today
+date-format: "MMMM YYYY"
+abstract: |
+  Replace this with the abstract (one paragraph, about 250 words). It should state the
+  question, the data and method, and the main finding.
+toc: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Introduction
+
+State the question in the first paragraph. Say why it matters for South African households
+and what this thesis adds. A sentence at the end of the chapter should tell the reader how
+the rest is organised.
+
+Cite work by its Better BibTeX key (type `@` in VS Code to search `references.bib`). For example, the time-allocation model of @beckerTheoryAllocationTime1965
+treats the household as a producer. A parenthetical citation looks like this
+[@beckerTheoryAllocationTime1965, p. 495]. Never type a reference by hand: if a work is not in
+Zotero, add it there first.
+
+# Literature and institutional background
+
+Keep this short and pointed. The reader wants to know which two or three results your work
+rests on and where the gap is, not a survey.
+
+# Theory
+
+Number equations you refer to later:
+
+$$
+U = u(x, \ell) \quad \text{s.t.} \quad px = w(T - \ell) + v
+$$ {#eq-budget}
+
+Then refer to them as @eq-budget.
+
+# Data
+
+Describe the source, the sample, and every restriction you impose, with counts. A summary
+statistics table belongs here (see `check.qmd` for a working `modelsummary` example).
+
+# Empirical strategy
+
+Write the estimating equation and say, in words, what variation identifies the parameter of
+interest and why that variation is plausibly exogenous.
+
+# Results
+
+Present tables with `modelsummary` or `fixest::etable`, figures with `ggplot2`. Each table
+and figure gets a caption and a note stating the standard-error type and the sample.
+
+# Conclusion
+
+One page. What was found, what it means, what it does not show.
+
+# References {.unnumbered}
+
+::: {#refs}
+:::
+
+# Appendix {.unnumbered}
+
+Robustness tables and variable definitions.

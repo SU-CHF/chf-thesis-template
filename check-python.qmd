@@ -1,0 +1,59 @@
+---
+title: "Setup check: Python and Jupyter"
+author: "Student Name"
+date: today
+format:
+  pdf:
+    documentclass: article
+    toc: false
+jupyter: python3
+execute:
+  echo: true
+  warning: false
+---
+
+If this document renders to a PDF, Quarto found the Python environment at
+`~/.venvs/research` (via `QUARTO_PYTHON`) and Jupyter works. Sentinel: `CHF-CHECK-PY-OK`.
+
+## A table (pandas)
+
+```{python}
+#| label: tbl-py
+#| tbl-cap: "Summary statistics, example data."
+import pandas as pd
+import statsmodels.api as sm
+df = sm.datasets.longley.load_pandas().data   # bundled with statsmodels, no download
+tab = df[["TOTEMP", "GNP", "UNEMP"]].describe().T[["mean", "std", "min", "max"]].round(2)
+from IPython.display import Markdown
+Markdown(tab.to_markdown())
+```
+
+## A regression (statsmodels)
+
+```{python}
+X = sm.add_constant(df[["GNP", "UNEMP"]])
+res = sm.OLS(df["TOTEMP"], X).fit(cov_type="HC1")
+print(res.summary().tables[1])
+```
+
+## A figure (matplotlib)
+
+```{python}
+#| label: fig-py
+#| fig-cap: "Employment against GNP, Longley data."
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots(figsize=(6, 3.5))
+ax.scatter(df["GNP"], df["TOTEMP"], color="#0072B2")
+ax.set_xlabel("GNP"); ax.set_ylabel("Total employment")
+plt.tight_layout()
+plt.show()
+```
+
+## Versions
+
+```{python}
+#| echo: false
+import sys, numpy, matplotlib, statsmodels
+print("Python", sys.version.split()[0], "| pandas", pd.__version__,
+      "| numpy", numpy.__version__, "| statsmodels", statsmodels.__version__)
+```

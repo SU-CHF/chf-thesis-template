@@ -1,0 +1,31 @@
+# Quarto / LaTeX output
+*.pdf
+*.html
+*_files/
+*_cache/
+.quarto/
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.nav
+*.snm
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# R / Python
+.Rhistory
+.RData
+.Rproj.user/
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+
+# Secrets and data -- never commit these
+.env
+.env.*
+data/raw/
